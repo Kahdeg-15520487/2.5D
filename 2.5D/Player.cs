@@ -31,8 +31,8 @@ namespace IsometricTile {
 				position += CoordinateHelper.ScreenToWorld(new Vector2(10f, 0f));
 			}
 
-			Console.WriteLine("Norm position: " + position);
-			Console.WriteLine("Iso pos: " + CoordinateHelper.ScreenToWorld(position));
+			//Console.WriteLine("Norm position: " + position);
+			//Console.WriteLine("Iso pos: " + CoordinateHelper.ScreenToWorld(position));
 		}
 
 		public void Draw(SpriteBatch spriteBatch) {

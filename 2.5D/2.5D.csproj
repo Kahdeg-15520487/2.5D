@@ -48,8 +48,34 @@
     <Compile Include="ECS\Entity.cs" />
     <Compile Include="ECS\System.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapCell.cs" />
+    <Compile Include="Monogame_Utilities\Constants.cs" />
+    <Compile Include="Monogame_Utilities\CONTENT_MANAGER.cs" />
+    <Compile Include="Monogame_Utilities\Drawing\Animation\AnimatedEntity.cs" />
+    <Compile Include="Monogame_Utilities\Drawing\Animation\Animation.cs" />
+    <Compile Include="Monogame_Utilities\Drawing\Animation\Frame.cs" />
+    <Compile Include="Monogame_Utilities\Drawing\Camera.cs" />
+    <Compile Include="Monogame_Utilities\Drawing\DrawingHelper.cs" />
+    <Compile Include="Monogame_Utilities\Drawing\Primitive2D.cs" />
+    <Compile Include="Monogame_Utilities\Drawing\PrimitiveBatch.cs" />
+    <Compile Include="Monogame_Utilities\Drawing\TextRenderer.cs" />
+    <Compile Include="Monogame_Utilities\Drawing\TextureRenderer.cs" />
+    <Compile Include="Monogame_Utilities\InputState.cs" />
+    <Compile Include="Monogame_Utilities\PathFinding\dijkstra.cs" />
+    <Compile Include="Monogame_Utilities\ScreenManager\Screen.cs" />
+    <Compile Include="Monogame_Utilities\ScreenManager\ScreenManager.cs" />
+    <Compile Include="Monogame_Utilities\UI\AnimationPlayer.cs" />
+    <Compile Include="Monogame_Utilities\UI\Button.cs" />
+    <Compile Include="Monogame_Utilities\UI\Canvas.cs" />
+    <Compile Include="Monogame_Utilities\UI\Grid.cs" />
+    <Compile Include="Monogame_Utilities\UI\InputBox.cs" />
+    <Compile Include="Monogame_Utilities\UI\Label.cs" />
+    <Compile Include="Monogame_Utilities\UI\ListView.cs" />
+    <Compile Include="Monogame_Utilities\UI\PictureBox.cs" />
+    <Compile Include="Monogame_Utilities\UI\UIObject.cs" />
+    <Compile Include="Monogame_Utilities\Utility.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,6 +139,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
+    <None Include="Monogame_Utilities\.gitattributes" />
+    <None Include="Monogame_Utilities\.gitignore" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ECS\Component\" />

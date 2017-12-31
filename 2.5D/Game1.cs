@@ -98,8 +98,10 @@ namespace IsometricTile
                 Exit();
 
             MouseState ms = Mouse.GetState();
-            if(ms.LeftButton == ButtonState.Pressed)
-                Console.WriteLine(CoordinateHelper.ScreenToWorld(new Vector2(ms.X, ms.Y)));
+			if (ms.LeftButton == ButtonState.Pressed) {
+				Console.WriteLine(CoordinateHelper.ScreenToWorld(ms.Position.ToVector2()));
+				Console.WriteLine(CoordinateHelper.GetTileCoordinates(CoordinateHelper.ScreenToWorld(ms.Position.ToVector2()), 50));
+			}
 
 			player.Update();
 			//camera.Centre = player.Position;
