@@ -40,8 +40,6 @@ namespace IsometricTile {
 			// TODO: Add your initialization logic here
 			graphics.ApplyChanges();
 			this.IsMouseVisible = true;
-
-			map = new Map();
 			camera = new Camera(GraphicsDevice.Viewport);
 			player = new Player();
 
@@ -56,9 +54,9 @@ namespace IsometricTile {
 			// Create a new SpriteBatch, which can be used to draw textures.
 			CONTENT_MANAGER.spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			CONTENT_MANAGER.LoadSpriteSheet("Player","Tile");
+			CONTENT_MANAGER.LoadSpriteSheet("Player", "Tile1", "Tile2", "Tile3", "Tile4", "Tile5");
 
-			map.Generate(new int[,]{
+			map = new Map(new int[,]{
 				{1,1,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0},
 				{1,1,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0},
 				{2,1,1,1,1,1,1,1,1,1,1,1,2,0,0,2,2,2,2,2},

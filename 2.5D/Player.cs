@@ -12,11 +12,21 @@ using Utilities;
 namespace IsometricTile {
 	class Player {
 		private Texture2D texture;
-		private Dictionary<Direction, Texture2D> textures;
+		private Direction direction;
+		private Dictionary<Direction, Rectangle> spriterects;
 		private Vector2 position = CoordinateHelper.WorldToScreen(new Vector2(0, 150));
 
 		public Player() {
-			textures = new Dictionary<Direction, Texture2D>();
+			spriterects = new Dictionary<Direction, Rectangle>() {
+				{ Direction.North, new Rectangle() },
+				{ Direction.NorthEast, new Rectangle() },
+				{ Direction.East, new Rectangle() },
+				{ Direction.SouthEast, new Rectangle() },
+				{ Direction.South, new Rectangle() },
+				{ Direction.SouthWest, new Rectangle() },
+				{ Direction.West, new Rectangle() },
+				{ Direction.NorthWest, new Rectangle() }
+			};
 
 		}
 
@@ -41,7 +51,7 @@ namespace IsometricTile {
 		}
 
 		public void Draw(SpriteBatch spriteBatch) {
-			spriteBatch.Draw(texture, position, Color.White);
+			spriteBatch.Draw(texture, position, spriterects, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepth.Unit);
 		}
 	}
 }
