@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Utilities.Utility;
+using Utilities;
 
 namespace IsometricTile {
 	static class CoordinateHelper {
@@ -24,7 +24,7 @@ namespace IsometricTile {
 
 		public static Vector2 GetTileCoordinates(Vector2 point, int height) {
 			return new Vector2 {
-				X = (float)Math.Floor(point.X / height),
+				X =  (float)Math.Floor(point.X / height),
 				Y = (float)Math.Floor(point.Y / height)
 			};
 		}

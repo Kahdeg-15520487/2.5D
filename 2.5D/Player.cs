@@ -7,12 +7,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Utilities;
+
 namespace IsometricTile {
 	class Player {
 		private Texture2D texture;
+		private Dictionary<Direction, Texture2D> textures;
 		private Vector2 position = CoordinateHelper.WorldToScreen(new Vector2(0, 150));
-		public void Load(ContentManager Content) {
-			texture = Content.Load<Texture2D>("Player");
+
+		public Player() {
+			textures = new Dictionary<Direction, Texture2D>();
+
 		}
 
 		public void Update() {
