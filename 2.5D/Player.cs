@@ -8,39 +8,76 @@ using System.Linq;
 using System.Text;
 
 using Utilities;
+using System.Collections;
 
 namespace IsometricTile {
 	class Player {
-		private Direction direction;
+		private int direction;
 		private SpriteSheetMap spriteSheet;
-		private Vector2 position = CoordinateHelper.WorldToScreen(new Vector2(0, 150));
+		private Vector2 position;
+		public Vector2 Position { get => position; }
 
-		public Player() {
-			
+		/// <summary>
+		/// speed of the air plane per second
+		/// </summary>
+		public readonly float Speed;
+
+		public Vector2 Velocity;
+
+		public Player(Vector2 pos, SpriteSheetMap sprite, int speed = 10) {
+			//if (directionClamp is null) {
+			//	directionClamp = new Range(0, 360, 15);
+			//}
+			direction = 3;
+			position = CoordinateHelper.WorldToScreen(pos);
+			spriteSheet = sprite;
+			Speed = speed / 60f;
+			Velocity = Vector2.Zero;
 		}
 
 		public void Update() {
-			KeyboardState ks = Keyboard.GetState();
+			//w/s for acelerate and decelerate
+			//a/d for turn left/right
+			var acceleration = 0f;
+			if (HelperFunction.IsKeyDown(Keys.W)) {
+				acceleration -= Speed;
+			}
+			if (HelperFunction.IsKeyDown(Keys.S)) {
+				acceleration += Speed;
+				if (acceleration > 0) {
+					acceleration = 0;
+				}
+			}
+			if (HelperFunction.IsKeyDown(Keys.D)) {
+				direction -= 1;
+				if (direction < 0) {
+					direction = 23;
+				}
+				Console.WriteLine(direction * 15);
+			}
+			if (HelperFunction.IsKeyDown(Keys.A)) {
+				direction += 1;
+				if (direction >= 24) {
+					direction = 0;
+				}
+				Console.WriteLine(direction * 15);
+			}
+			var angle = HelperFunction.DegreeToRadian(direction * 15 - 45);
+			var accelVector = new Vector2((float)Math.Cos(angle), -(float)Math.Sin(angle)) * acceleration;
+			Console.WriteLine(direction * 15);
+			Console.WriteLine(acceleration);
+			Console.WriteLine(Velocity);
+			Velocity += accelVector;
 
-			if (ks.IsKeyDown(Keys.W)) {
-				position += CoordinateHelper.ScreenToWorld(new Vector2(0f, -10f));
-			}
-			if (ks.IsKeyDown(Keys.S)) {
-				position += CoordinateHelper.ScreenToWorld(new Vector2(0f, 10f));
-			}
-			if (ks.IsKeyDown(Keys.A)) {
-				position += CoordinateHelper.ScreenToWorld(new Vector2(-10f, 0f));
-			}
-			if (ks.IsKeyDown(Keys.D)) {
-				position += CoordinateHelper.ScreenToWorld(new Vector2(10f, 0f));
-			}
+			position += CoordinateHelper.ScreenToWorld(Velocity);
+
 
 			//Console.WriteLine("Norm position: " + position);
 			//Console.WriteLine("Iso pos: " + CoordinateHelper.ScreenToWorld(position));
 		}
 
 		public void Draw(SpriteBatch spriteBatch) {
-			spriteBatch.Draw(texture, position, spriterects, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepth.Unit);
+			spriteBatch.Draw(spriteSheet.SpriteSheet, position, spriteSheet[direction.ToString()], Color.White, 0f, Vector2.Zero, 0.25f, SpriteEffects.None, LayerDepth.Unit);
 		}
 	}
 }

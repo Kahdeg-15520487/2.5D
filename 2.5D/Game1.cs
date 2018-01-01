@@ -41,7 +41,6 @@ namespace IsometricTile {
 			graphics.ApplyChanges();
 			this.IsMouseVisible = true;
 			camera = new Camera(GraphicsDevice.Viewport);
-			player = new Player();
 
 			base.Initialize();
 		}
@@ -55,7 +54,9 @@ namespace IsometricTile {
 			CONTENT_MANAGER.spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			CONTENT_MANAGER.LoadSprites("Tile1", "Tile2", "Tile3", "Tile4", "Tile5");
-			CONTENT_MANAGER.LoadSpriteSheet("Player", 400, 200);
+			CONTENT_MANAGER.LoadSpriteSheet("Player", 800, 800);
+
+			player = new Player(new Vector2(0, 150),CONTENT_MANAGER.SpriteSheets["Player"]);
 
 			map = new Map(new int[,]{
 				{1,1,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0},
@@ -90,14 +91,16 @@ namespace IsometricTile {
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
-			MouseState ms = Mouse.GetState();
-			if (ms.LeftButton == ButtonState.Pressed) {
-				Console.WriteLine(CoordinateHelper.ScreenToWorld(ms.Position.ToVector2()));
-				Console.WriteLine(CoordinateHelper.GetTileCoordinates(CoordinateHelper.ScreenToWorld(ms.Position.ToVector2()), 50));
+			CONTENT_MANAGER.CurrentInputState = new InputState(Mouse.GetState(), Keyboard.GetState());
+
+			if (HelperFunction.IsLeftMousePressed()) {
+				var mousepos = CoordinateHelper.ScreenToWorld(CONTENT_MANAGER.CurrentInputState.mouseState.Position.ToVector2());
+				Console.WriteLine(mousepos);
+				Console.WriteLine(CoordinateHelper.GetTileCoordinates(mousepos, 50));
 			}
 
 			player.Update();
-			//camera.Centre = player.Position;
+			camera.Centre = player.Position;
 			camera.Update();
 
 			// TODO: Add your update logic here

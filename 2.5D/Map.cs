@@ -23,11 +23,11 @@ namespace IsometricTile {
 		public Map(int [,] map, int size) {
 			if (tileTexture is null) {
 				tileTexture = new Dictionary<int, Texture2D>();
-				tileTexture.Add(1, CONTENT_MANAGER.spriteSheets["Tile1"]);
-				tileTexture.Add(2, CONTENT_MANAGER.spriteSheets["Tile2"]);
-				tileTexture.Add(3, CONTENT_MANAGER.spriteSheets["Tile3"]);
-				tileTexture.Add(4, CONTENT_MANAGER.spriteSheets["Tile4"]);
-				tileTexture.Add(5, CONTENT_MANAGER.spriteSheets["Tile5"]);
+				tileTexture.Add(1, CONTENT_MANAGER.Sprites["Tile1"]);
+				tileTexture.Add(2, CONTENT_MANAGER.Sprites["Tile2"]);
+				tileTexture.Add(3, CONTENT_MANAGER.Sprites["Tile3"]);
+				tileTexture.Add(4, CONTENT_MANAGER.Sprites["Tile4"]);
+				tileTexture.Add(5, CONTENT_MANAGER.Sprites["Tile5"]);
 			}
 
 			Generate(map, size);

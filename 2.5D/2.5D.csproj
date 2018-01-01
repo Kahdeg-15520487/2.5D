@@ -63,7 +63,6 @@
     <Compile Include="Monogame_Utilities\Drawing\TextRenderer.cs" />
     <Compile Include="Monogame_Utilities\Drawing\TextureRenderer.cs" />
     <Compile Include="Monogame_Utilities\InputState.cs" />
-    <Compile Include="Monogame_Utilities\PathFinding\DijikstraHelper.cs" />
     <Compile Include="Monogame_Utilities\PathFinding\dijkstra.cs" />
     <Compile Include="Monogame_Utilities\ScreenManager\Screen.cs" />
     <Compile Include="Monogame_Utilities\ScreenManager\ScreenManager.cs" />
