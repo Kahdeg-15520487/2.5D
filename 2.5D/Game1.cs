@@ -54,7 +54,8 @@ namespace IsometricTile {
 			// Create a new SpriteBatch, which can be used to draw textures.
 			CONTENT_MANAGER.spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			CONTENT_MANAGER.LoadSpriteSheet("Player", "Tile1", "Tile2", "Tile3", "Tile4", "Tile5");
+			CONTENT_MANAGER.LoadSprites("Tile1", "Tile2", "Tile3", "Tile4", "Tile5");
+			CONTENT_MANAGER.LoadSpriteSheet("Player", 400, 200);
 
 			map = new Map(new int[,]{
 				{1,1,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0},
