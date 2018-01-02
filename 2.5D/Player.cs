@@ -15,7 +15,10 @@ namespace IsometricTile {
 		private int direction;
 		private SpriteSheetMap spriteSheet;
 		private Vector2 position;
-		public Vector2 Position { get => position; }
+		public Vector2 IsoPosition { get => position; }
+		public Vector2 WorldPosition { get => CoordinateHelper.ScreenToWorld(position); }
+
+		public Vector2 Origin;
 
 		/// <summary>
 		/// speed of the air plane per second
@@ -24,7 +27,7 @@ namespace IsometricTile {
 
 		public Vector2 Velocity;
 
-		public Player(Vector2 pos, SpriteSheetMap sprite, int speed = 10) {
+		public Player(Vector2 pos, SpriteSheetMap sprite, Vector2 origin, int speed = 10) {
 			//if (directionClamp is null) {
 			//	directionClamp = new Range(0, 360, 15);
 			//}
@@ -33,6 +36,7 @@ namespace IsometricTile {
 			spriteSheet = sprite;
 			Speed = speed / 60f;
 			Velocity = Vector2.Zero;
+			Origin = origin;
 		}
 
 		public void Update() {
@@ -63,21 +67,25 @@ namespace IsometricTile {
 				Console.WriteLine(direction * 15);
 			}
 			var angle = HelperFunction.DegreeToRadian(direction * 15 - 45);
+
+			HelperFunction.RotateVector(Velocity, angle);
+
 			var accelVector = new Vector2((float)Math.Cos(angle), -(float)Math.Sin(angle)) * acceleration;
-			Console.WriteLine(direction * 15);
-			Console.WriteLine(acceleration);
-			Console.WriteLine(Velocity);
+			
 			Velocity += accelVector;
 
 			position += CoordinateHelper.ScreenToWorld(Velocity);
 
+			Console.WriteLine(direction * 15);
+			Console.WriteLine(acceleration);
+			Console.WriteLine(Velocity);
 
 			//Console.WriteLine("Norm position: " + position);
 			//Console.WriteLine("Iso pos: " + CoordinateHelper.ScreenToWorld(position));
 		}
 
 		public void Draw(SpriteBatch spriteBatch) {
-			spriteBatch.Draw(spriteSheet.SpriteSheet, position, spriteSheet[direction.ToString()], Color.White, 0f, Vector2.Zero, 0.25f, SpriteEffects.None, LayerDepth.Unit);
+			spriteBatch.Draw(spriteSheet.SpriteSheet, position, spriteSheet[direction.ToString()], Color.White, 0f, Origin, 0.25f, SpriteEffects.None, LayerDepth.Unit);
 		}
 	}
 }

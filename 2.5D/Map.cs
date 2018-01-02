@@ -8,7 +8,8 @@ using Utilities;
 
 namespace IsometricTile {
 	class Map {
-		private Tile[,] Tiles;
+		private Vector2[,] TilePos;
+		private int[,] TileType;
 		private static Dictionary<int, Texture2D> tileTexture = null;
 
 		public int Width {
@@ -20,14 +21,14 @@ namespace IsometricTile {
 			set;
 		}
 
-		public Map(int [,] map, int size) {
+		public Map(int[,] map, int size) {
 			if (tileTexture is null) {
-				tileTexture = new Dictionary<int, Texture2D>();
-				tileTexture.Add(1, CONTENT_MANAGER.Sprites["Tile1"]);
-				tileTexture.Add(2, CONTENT_MANAGER.Sprites["Tile2"]);
-				tileTexture.Add(3, CONTENT_MANAGER.Sprites["Tile3"]);
-				tileTexture.Add(4, CONTENT_MANAGER.Sprites["Tile4"]);
-				tileTexture.Add(5, CONTENT_MANAGER.Sprites["Tile5"]);
+				tileTexture = new Dictionary<int, Texture2D> {
+					{ 0, CONTENT_MANAGER.Sprites["tile0"] },
+					{ 1, CONTENT_MANAGER.Sprites["tile1"] },
+					{ 2, CONTENT_MANAGER.Sprites["tile2"] },
+					{ 3, CONTENT_MANAGER.Sprites["tile3"] }
+				};
 			}
 
 			Generate(map, size);
@@ -36,30 +37,20 @@ namespace IsometricTile {
 		private void Generate(int[,] map, int size) {
 			Width = map.GetLength(0);
 			Height = map.GetLength(1);
-			Tiles = new Tile[Height,Width];
+			TilePos = new Vector2[Height, Width];
+			TileType = new int[Height, Width];
 			for (int x = 0; x < Width; x++) {
 				for (int y = 0; y < Height; y++) {
-					int tileType = map[x, y];
-
-					if (tileType > 0) {
-						Vector2 coord = CoordinateHelper.ScreenToWorld(new Vector2(x * size, y * size));
-						Tiles[y, x] = new Tile(coord, tileType);
-					}
+					TilePos[x, y] = CoordinateHelper.ScreenToWorld(new Vector2(x * size, y * size));
+					TileType[x, y] = map[x,y];
 				}
 			}
 		}
 
 		public void Draw(SpriteBatch spriteBatch) {
-			foreach (Tile tile in Tiles) {
-				if (tile is null) {
-					continue;
-				}
-				if (tile.ID == 1)
-					spriteBatch.Draw(tileTexture[tile.ID], tile.Position, Color.White);
-				else {
-					Vector2 temp = tile.Position;
-					temp.Y += -7f;
-					spriteBatch.Draw(tileTexture[tile.ID], temp, Color.White);
+			for (int x = 0; x < Width; x++) {
+				for (int y = 0; y < Height; y++) {
+					spriteBatch.Draw(tileTexture[TileType[x, y]], TilePos[x, y], null, Color.White, 0f, Vector2.Zero, 0.1f, SpriteEffects.None, LayerDepth.TerrainBase);
 				}
 			}
 		}
